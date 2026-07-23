@@ -1,6 +1,6 @@
 import streamlit as st
 import joblib
-import pandas
+import pandas as pd
 
 
 st.title('Simple ML app for house price')
@@ -17,3 +17,11 @@ second_floor_sf = st.number_input('2nd Floor SF', value=800)
 full_bath = st.number_input('Full Bath', value=2)
 bedroom_above_gr = st.number_input('Bedroom Above Ground', value=3)
 total_rooms_above_grd = st.number_input('Total Rooms Above Ground', value=6)
+
+if st.button("Predict price"):
+    #transform this to df for predictions
+    input_data_list = [lot_area, year_built, first_floor_sf, second_floor_sf, full_bath,
+                    bedroom_above_gr, total_rooms_above_grd]
+    input_df = pd.DataFrame([input_data_list] ,columns=features)
+    prediction = model.predict(input_df)[0]
+    st.write(f"The predicted price is {prediction}")
